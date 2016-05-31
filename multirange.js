@@ -2,12 +2,13 @@
 
 var supportsMultiple = self.HTMLInputElement && "valueLow" in HTMLInputElement.prototype;
 
+if (supportsMultiple) {
+  return;
+}
+
 var descriptor = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value");
 
 self.multirange = function(input) {
-	if (supportsMultiple) {
-		return;
-	}
 
 	var values = input.getAttribute("value").split(",");
 	var max = +input.max || 100;
