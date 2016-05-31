@@ -1,42 +1,69 @@
-if (self.HTMLInputElement && !("valueLow" in HTMLInputElement.prototype)) {
-(function($, $$){
+(function(){
+
+var supportsMultiple = self.HTMLInputElement && "valueLow" in HTMLInputElement.prototype;
+
+var descriptor = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value");
 
 self.multirange = function(input) {
+	if (supportsMultiple) {
+		return;
+	}
+
 	var values = input.getAttribute("value").split(",");
 	var max = +input.max || 100;
-	var clone = input.cloneNode();
+	var ghost = input.cloneNode();
 
 	input.classList.add("multirange", "original");
-	clone.classList.add("multirange", "clone");
+	ghost.classList.add("multirange", "ghost");
 
 	input.value = values[0] || max/2;
-	clone.value = values[1] || max/2;
+	ghost.value = values[1] || max/2;
 
-	input.parentNode.insertBefore(clone, input.nextSibling);
+	input.parentNode.insertBefore(ghost, input.nextSibling);
 
-	Object.defineProperty(input, "originalValue", Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value"));
+	Object.defineProperty(input, "originalValue", descriptor.get? descriptor : {
+		// Fuck you Safari >:(
+		get: function() { return this.value; },
+		set: function(v) { this.value = v; }
+	});
 
 	Object.defineProperties(input, {
 		valueLow: {
-			get: function() { return Math.min(this.originalValue, clone.value); },
-			set: function(v) { this.originalValue = v; }
+			get: function() { return Math.min(this.originalValue, ghost.value); },
+			set: function(v) { this.originalValue = v; },
+			enumerable: true
 		},
 		valueHigh: {
-			get: function() { return Math.max(this.originalValue, clone.value); },
-			set: function(v) { clone.value = v; }
-		},
-		value: {
-			get: function() { return this.valueLow + "," + this.valueHigh; }
+			get: function() { return Math.max(this.originalValue, ghost.value); },
+			set: function(v) { ghost.value = v; },
+			enumerable: true
 		}
 	});
 
-	[input, clone]._.addEventListener("input", function (evt) {
-		clone.style.setProperty("--low", input.valueLow * 100 / max + "%");
-		clone.style.setProperty("--high", input.valueHigh * 100 / max + "%");
-	})._.fire("input");
+	if (descriptor.get) {
+		// Again, fuck you Safari
+		Object.defineProperty(input, "value", {
+			get: function() { return this.valueLow + "," + this.valueHigh; },
+			set: function(v) {
+				var values = v.split(",");
+				this.valueLow = values[0];
+				this.valueHigh = values[1];
+			},
+			enumerable: true
+		});
+	}
+
+	function update() {
+		ghost.style.setProperty("--low", input.valueLow * 100 / max + "%");
+		ghost.style.setProperty("--high", input.valueHigh * 100 / max + "%");
+	}
+
+	input.addEventListener("input", update);
+	ghost.addEventListener("input", update);
+
+	update();
 }
 
-$$('input[type="range"][multiple]').forEach(multirange);
+Array.from(document.querySelectorAll('input[type="range"][multiple]')).forEach(multirange);
 
-})(Bliss, Bliss.$);
-}
+})();

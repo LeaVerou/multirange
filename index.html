@@ -14,19 +14,25 @@
 
 <header>
 	<h1>multirange</h1>
-	<p>A tiny polyfill for HTML5 multi-handle sliders.</p>
+	<p>A tiny polyfill for <a href="https://html.spec.whatwg.org/multipage/forms.html#range-state-(type=range):attr-input-multiple-3">HTML5 multi-handle sliders</a>.</p>
 	<pre><code>&lt;input type="range" <strong>multiple</strong> value="10,80" /></code></pre>
+	<a href="multirange.js" download>Download JS</a>
+	<a href="multirange.css" download>Download CSS</a>
 </header>
 
-<div class="demo">
+<section class="demo">
+<input type="range" multiple value="0,100" />
 <input type="range" multiple value="10,80" />
-</div>
+<input type="range" multiple value="40,60" />
+<input type="range" multiple value="50,50" />
+</section>
 
 <section id="pros-cons">
 	<section class="pros">
 		<h1>Features</h1>
 		<ul>
 			<li>Only 0.5KB minified & gzipped!</li>
+			<li>No dependencies.</li>
 			<li>Keyboard accessible</li>
 			<li>Clicking on the track still works</li>
 			<li>Handles can be moved past each other</li>
@@ -39,16 +45,28 @@
 		<h1>Limitations</h1>
 		<ul>
 			<li>Requires support for <code>&lt;input type="range"></code> (duh).</li>
-			<li>Fully works only in <a href="http://caniuse.com/#search=css%20variables">browsers supporting CSS Variables</a>. Fallback in others.</li>
-			<li>Requires <a href="http://blissfuljs.com">Bliss</a>.</li>
+			<li>Fully works only in <a href="http://caniuse.com/#search=css%20variables">browsers supporting CSS Variables</a>. Fallback with 2 sliders in the rest.</li>
+			<li><code>input.value</code> not polyfilled in Safari (will be the same as <code>input.valueLow</code>).</li>
 		</ul>
 	</section>
 </section>
 
+<section>
+	<h1>Api</h1>
+
+	<ul>
+		<li>
+			<strong>JS:</strong> Use the <code>multirange(element)</code> function to process sliders added to the page later.
+		</li>
+		<li>
+			<strong>CSS:</strong> Use the <code>--range-color</code> property to change the color of the range.
+			Use the <code>--track-background</code> property for more extensive customization.
+		</li>
+	</ul>
+</section>
+
 <footer>By <a href="http://lea.verou.me">Lea Verou</a></footer>
 
-<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=blissfuljs"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/blissfuljs/1.0.2/bliss.min.js"></script>
 <script src="multirange.js"></script>
 
 </body>
