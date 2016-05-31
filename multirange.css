@@ -1,0 +1,35 @@
+input[type="range"].multirange.original {
+	position: absolute;
+}
+
+	input[type="range"].multirange.original::-webkit-slider-thumb {
+		position: relative;
+		z-index: 2;
+	}
+
+	input[type="range"].multirange.original::-moz-range-thumb {
+		transform: scale(1); /* FF doesn't apply position it seems */
+		z-index: 1;
+	}
+
+	input[type="range"].multirange::-moz-range-track {
+		border-color: transparent; /* needed to switch FF to "styleable" control */
+	}
+
+input[type="range"].multirange.clone {
+	position: relative;
+	background: var(--track-background);
+	--track-background: linear-gradient(to right,
+			transparent var(--low), var(--range-color) 0,
+			var(--range-color) var(--high), transparent 0
+		) no-repeat 0 50% / 100% 36%;
+	--range-color: hsl(180, 80%, 40%);
+}
+
+	input[type="range"].multirange.clone::-webkit-slider-runnable-track {
+		background: var(--track-background);
+	}
+
+	input[type="range"].multirange.clone::-moz-range-track {
+		background: var(--track-background);
+	}

@@ -1,0 +1,49 @@
+body {
+	max-width: 40em;
+	margin: auto;
+}
+
+header h1 {
+	font-size: 400%;
+}
+
+.demo {
+	transform: scale(2);
+	transform-origin: 0 0;
+	margin-bottom: 2em;
+}
+
+#pros-cons {
+	display: flex;
+}
+
+ul {
+	padding-left: 0;
+	list-style: none;
+}
+
+	.pros li,
+	.cons li {
+		text-indent: -1em;
+	}
+
+	.pros li::before,
+	.cons li::before {
+		width: .8em;
+		padding-right: .2em;
+		font-size: 120%;
+	}
+
+	.pros li::before {
+		content: "✓";
+		color: hsl(80, 60%, 50%);
+	}
+
+	.cons li::before {
+		content: "✘";
+		color: hsl(0, 60%, 55%);
+	}
+
+	#pros-cons section:first-of-type ul {
+		padding-right: 1em;
+	}

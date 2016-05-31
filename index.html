@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Multirange: A tiny polyfill for HTML5 multi-handle sliders.</title>
+
+<link rel="stylesheet" href="index.css">
+<link rel="stylesheet" href="multirange.css">
+
+</head>
+<body>
+
+<header>
+	<h1>multirange</h1>
+	<p>A tiny polyfill for HTML5 multi-handle sliders.</p>
+	<pre><code>&lt;input type="range" <strong>multiple</strong> value="10,80" /></code></pre>
+</header>
+
+<div class="demo">
+<input type="range" multiple value="10,80" />
+</div>
+
+<section id="pros-cons">
+	<section class="pros">
+		<h1>Features</h1>
+		<ul>
+			<li>Only 0.5KB minified & gzipped!</li>
+			<li>Keyboard accessible</li>
+			<li>Clicking on the track still works</li>
+			<li>Handles can be moved past each other</li>
+			<li>Customizable styling</li>
+			<li>JS properties polyfilled too (<code>input.value</code>, <code>input.valueLow</code>, <code>input.valueHigh</code>)</li>
+		</ul>
+	</section>
+
+	<section class="cons">
+		<h1>Limitations</h1>
+		<ul>
+			<li>Requires support for <code>&lt;input type="range"></code> (duh).</li>
+			<li>Fully works only in <a href="http://caniuse.com/#search=css%20variables">browsers supporting CSS Variables</a>. Fallback in others.</li>
+			<li>Requires <a href="http://blissfuljs.com">Bliss</a>.</li>
+		</ul>
+	</section>
+</section>
+
+<footer>By <a href="http://lea.verou.me">Lea Verou</a></footer>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=blissfuljs"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/blissfuljs/1.0.2/bliss.min.js"></script>
+<script src="multirange.js"></script>
+
+</body>
+</html>
