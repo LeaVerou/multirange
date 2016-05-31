@@ -62,7 +62,6 @@ body > header {
 		border: .12em solid white;
 		padding: .2em .6em;
 		border-radius: .35em;
-		font-size: 120%;
 		text-decoration: none;
 	}
 
@@ -72,10 +71,11 @@ body > header {
 		}
 
 .demo {
+	width: -moz-max-content;
 	width: max-content;
 	padding: 0;
 	text-align: center;
-	xtransform: scale(1.2);
+	transform: scale(1.5);
 	transform-origin: 50% 0;
 	margin: 2em auto;
 }
@@ -127,3 +127,22 @@ body > footer {
 	background: #333;
 	color: white;
 }
+
+.github-ribbon {
+	position: absolute;
+	top: 0;
+	left: 0;
+	transform: rotate(90deg) translateX(70.71068%) rotate(-90deg) rotate(-45deg) translateY(-100%);
+	transform-origin: 0 0;
+	padding: .4em 3em;
+	background: black;
+	text-decoration: none;
+	color: white;
+	box-shadow: 0 0.1em 0 0.1em rgba(0, 0, 0, 0.15);
+	font-weight: bold;
+}
+
+	.github-ribbon:hover {
+		background: hsl(25, 100%, 50%);
+		color: black;
+	}

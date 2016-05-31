@@ -1,7 +1,9 @@
 @supports (--css: variables) {
 	input[type="range"].multirange {
 		padding: 0;
-		display: block;
+		margin: 0;
+		display: inline-block;
+		vertical-align: top;
 	}
 
 	input[type="range"].multirange.original {

@@ -33,6 +33,7 @@
 		<ul>
 			<li>Only 0.5KB minified & gzipped!</li>
 			<li>No dependencies.</li>
+			<li>Uses feature detection, will not run if two-handle sliders are natively supported.</li>
 			<li>Keyboard accessible</li>
 			<li>Clicking on the track still works</li>
 			<li>Handles can be moved past each other</li>
@@ -45,7 +46,7 @@
 		<h1>Limitations</h1>
 		<ul>
 			<li>Requires support for <code>&lt;input type="range"></code> (duh).</li>
-			<li>Fully works only in <a href="http://caniuse.com/#search=css%20variables">browsers supporting CSS Variables</a>. Fallback with 2 sliders in the rest.</li>
+			<li>Fully works in <a href="http://caniuse.com/#search=css%20variables">browsers supporting CSS Variables</a> (Chrome, Firefox, Safari). Fallback with 2 sliders in the rest.</li>
 			<li><code>input.value</code> not polyfilled in Safari (will be the same as <code>input.valueLow</code>).</li>
 		</ul>
 	</section>
@@ -65,7 +66,11 @@
 	</ul>
 </section>
 
-<footer>By <a href="http://lea.verou.me">Lea Verou</a></footer>
+<footer>
+	Made with &hearts; by <a href="http://lea.verou.me">Lea Verou</a>
+	&bull; <a href="http://lea.verou.me/2016/05/introducing-multirange-a-tiny-polyfill-for-html5-two-handle-sliders" target="_blank">About</a>
+	<a href="https://github.com/LeaVerou/multirange" target="_blank" class="github-ribbon">Fork me on GitHub</a>
+</footer>
 
 <script src="multirange.js"></script>
 
