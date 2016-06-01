@@ -5,7 +5,7 @@ var supportsMultiple = self.HTMLInputElement && "valueLow" in HTMLInputElement.p
 var descriptor = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value");
 
 self.multirange = function(input) {
-	if (supportsMultiple) {
+	if (supportsMultiple || input.dataset.multirange) {
 		return;
 	}
 
@@ -60,6 +60,8 @@ self.multirange = function(input) {
 
 	input.addEventListener("input", update);
 	ghost.addEventListener("input", update);
+
+	input.dataset.multirange = true;
 
 	update();
 }
