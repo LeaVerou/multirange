@@ -4,8 +4,10 @@ var supportsMultiple = self.HTMLInputElement && "valueLow" in HTMLInputElement.p
 
 var descriptor = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value");
 
+var multirangeClass = "multirange";
+
 self.multirange = function(input) {
-	if (supportsMultiple || input.dataset.multirange) {
+	if (supportsMultiple || input.classList.contains(multirangeClass)) {
 		return;
 	}
 
@@ -13,8 +15,8 @@ self.multirange = function(input) {
 	var max = +input.max || 100;
 	var ghost = input.cloneNode();
 
-	input.classList.add("multirange", "original");
-	ghost.classList.add("multirange", "ghost");
+	input.classList.add(multirangeClass, "original");
+	ghost.classList.add(multirangeClass, "ghost");
 
 	input.value = values[0] || max/2;
 	ghost.value = values[1] || max/2;
@@ -60,8 +62,6 @@ self.multirange = function(input) {
 
 	input.addEventListener("input", update);
 	ghost.addEventListener("input", update);
-
-	input.dataset.multirange = true;
 
 	update();
 }
