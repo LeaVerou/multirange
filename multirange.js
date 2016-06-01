@@ -1,4 +1,5 @@
-(function(){
+(function() {
+"use strict";
 
 var supportsMultiple = self.HTMLInputElement && "valueLow" in HTMLInputElement.prototype;
 
@@ -16,12 +17,12 @@ self.multirange = function(input) {
 	input.classList.add("multirange", "original");
 	ghost.classList.add("multirange", "ghost");
 
-	input.value = values[0] || max/2;
-	ghost.value = values[1] || max/2;
+	input.value = values[0] || max / 2;
+	ghost.value = values[1] || max / 2;
 
 	input.parentNode.insertBefore(ghost, input.nextSibling);
 
-	Object.defineProperty(input, "originalValue", descriptor.get? descriptor : {
+	Object.defineProperty(input, "originalValue", descriptor.get ? descriptor : {
 		// Fuck you Safari >:(
 		get: function() { return this.value; },
 		set: function(v) { this.value = v; }
@@ -64,6 +65,6 @@ self.multirange = function(input) {
 	update();
 }
 
-Array.from(document.querySelectorAll('input[type="range"][multiple]')).forEach(multirange);
+Array.from(document.querySelectorAll("input[type=range][multiple]")).forEach(multirange);
 
 })();
