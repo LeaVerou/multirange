@@ -65,6 +65,15 @@ self.multirange = function(input) {
 	update();
 }
 
-Array.from(document.querySelectorAll("input[type=range][multiple]")).forEach(multirange);
+multirange.init = function() {
+	Array.from(document.querySelectorAll("input[type=range][multiple]:not(.multirange)")).forEach(multirange);
+}
+
+if (document.readyState == "loading") {
+	document.addEventListener("DOMContentLoaded", multirange.init);
+}
+else {
+	multirange.init();
+}
 
 })();
