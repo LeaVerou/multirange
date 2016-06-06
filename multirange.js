@@ -1,4 +1,4 @@
-(function() {
+(function(document) {
 "use strict";
 
 var supportsMultiple = self.HTMLInputElement && "valueLow" in HTMLInputElement.prototype;
@@ -76,4 +76,4 @@ else {
 	multirange.init();
 }
 
-})();
+})(document);
