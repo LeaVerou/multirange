@@ -6,7 +6,7 @@ var supportsMultiple = self.HTMLInputElement && "valueLow" in HTMLInputElement.p
 var descriptor = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value");
 
 self.multirange = function(input) {
-	if (supportsMultiple) {
+	if (supportsMultiple || input.classList.contains("multirange")) {
 		return;
 	}
 
