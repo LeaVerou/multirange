@@ -11,14 +11,15 @@ self.multirange = function(input) {
 	}
 
 	var values = input.getAttribute("value").split(",");
+	var min = +input.min || 0;
 	var max = +input.max || 100;
 	var ghost = input.cloneNode();
 
 	input.classList.add("multirange", "original");
 	ghost.classList.add("multirange", "ghost");
 
-	input.value = values[0] || max / 2;
-	ghost.value = values[1] || max / 2;
+	input.value = values[0] || min + (max - min) / 2;
+	ghost.value = values[1] || min + (max - min) / 2;
 
 	input.parentNode.insertBefore(ghost, input.nextSibling);
 
@@ -55,8 +56,8 @@ self.multirange = function(input) {
 	}
 
 	function update() {
-		ghost.style.setProperty("--low", input.valueLow * 100 / max + 1 + "%");
-		ghost.style.setProperty("--high", input.valueHigh * 100 / max - 1 + "%");
+		ghost.style.setProperty("--low", 100 * ((input.valueLow - min) / (max - min)) + 1 + "%");
+		ghost.style.setProperty("--high", 100 * ((input.valueHigh - min) / (max - min)) - 1 + "%");
 	}
 
 	input.addEventListener("input", update);
