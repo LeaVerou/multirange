@@ -65,14 +65,14 @@ module.exports = (function(self) {
 	update();
     };
 
-    var multirange_init = function() {
+    self.multirange.init = function() {
 	Array.from(document.querySelectorAll("input[type=range][multiple]:not(.multirange)")).forEach(self.multirange);
     };
 
     if (document.readyState === "loading") {
-	document.addEventListener("DOMContentLoaded", multirange_init);
+	document.addEventListener("DOMContentLoaded", self.multirange.init);
     } else {
-	multirange_init();
+	self.multirange.init();
     }
     return self.multirange;
 
