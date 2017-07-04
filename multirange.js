@@ -10,7 +10,10 @@ self.multirange = function(input) {
 		return;
 	}
 
-	var values = input.getAttribute("value").split(",");
+	var values = [];
+	if(input.hasAttribute("value")) {
+		values = input.getAttribute("value").split(",");
+	}
 	var min = 0;
 	var max = 100;
 	if(input.hasAttribute("min")) {
