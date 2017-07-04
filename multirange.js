@@ -59,6 +59,7 @@ self.multirange = function(input) {
 				var values = v.split(",");
 				this.valueLow = values[0];
 				this.valueHigh = values[1];
+				update();
 			},
 			enumerable: true
 		});
