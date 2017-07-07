@@ -10,9 +10,10 @@ self.multirange = function(input) {
 		return;
 	}
 
-	var values = input.getAttribute("value").split(",");
-	var min = +input.min || 0;
-	var max = +input.max || 100;
+	var value = input.getAttribute("value");
+	var values = value === null ? [] : value.split(",");
+	var min = +(input.min || 0);
+	var max = +(input.max || 100);
 	var ghost = input.cloneNode();
 
 	input.classList.add("multirange", "original");
@@ -50,6 +51,7 @@ self.multirange = function(input) {
 				var values = v.split(",");
 				this.valueLow = values[0];
 				this.valueHigh = values[1];
+				update();
 			},
 			enumerable: true
 		});
