@@ -10,15 +10,17 @@ module.exports = (function(self) {
 		return;
 	}
 
-	var values = input.getAttribute("value").split(",");
-	var max = +input.max || 100;
+	var value = input.getAttribute("value");
+	var values = value === null ? [] : value.split(",");
+	var min = +(input.min || 0);
+	var max = +(input.max || 100);
 	var ghost = input.cloneNode();
 
 	input.classList.add("multirange", "original");
 	ghost.classList.add("multirange", "ghost");
 
-	input.value = values[0] || max / 2;
-	ghost.value = values[1] || max / 2;
+	input.value = values[0] || min + (max - min) / 2;
+	ghost.value = values[1] || min + (max - min) / 2;
 
 	input.parentNode.insertBefore(ghost, input.nextSibling);
 
@@ -49,14 +51,15 @@ module.exports = (function(self) {
 				var values = v.split(",");
 				this.valueLow = values[0];
 				this.valueHigh = values[1];
+				update();
 			},
 			enumerable: true
 		});
 	}
 
 	function update() {
-		ghost.style.setProperty("--low", input.valueLow * 100 / max + 1 + "%");
-		ghost.style.setProperty("--high", input.valueHigh * 100 / max - 1 + "%");
+		ghost.style.setProperty("--low", 100 * ((input.valueLow - min) / (max - min)) + 1 + "%");
+		ghost.style.setProperty("--high", 100 * ((input.valueHigh - min) / (max - min)) - 1 + "%");
 	}
 
 	input.addEventListener("input", update);
@@ -65,8 +68,8 @@ module.exports = (function(self) {
 	update();
 	};
 
-	self.multirange.init = function() {
-	Array.from(document.querySelectorAll("input[type=range][multiple]:not(.multirange)")).forEach(self.multirange);
+  self.multirange.init = function() {
+		[].slice.call(document.querySelectorAll("input[type=range][multiple]:not(.multirange)")).forEach(self.multirange);
 	};
 
 	if (document.readyState === "loading") {
