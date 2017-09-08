@@ -1,11 +1,11 @@
-(function() {
 "use strict";
+module.exports = (function(self) {
 
-var supportsMultiple = self.HTMLInputElement && "valueLow" in HTMLInputElement.prototype;
+	var supportsMultiple = self.HTMLInputElement && "valueLow" in HTMLInputElement.prototype;
 
-var descriptor = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value");
+	var descriptor = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value");
 
-self.multirange = function(input) {
+	self.multirange = function(input) {
 	if (supportsMultiple || input.classList.contains("multirange")) {
 		return;
 	}
@@ -66,17 +66,17 @@ self.multirange = function(input) {
 	ghost.addEventListener("input", update);
 
 	update();
-}
+	};
 
-multirange.init = function() {
-	[].slice.call(document.querySelectorAll("input[type=range][multiple]:not(.multirange)")).forEach(multirange);
-}
+  self.multirange.init = function() {
+		[].slice.call(document.querySelectorAll("input[type=range][multiple]:not(.multirange)")).forEach(self.multirange);
+	};
 
-if (document.readyState == "loading") {
-	document.addEventListener("DOMContentLoaded", multirange.init);
-}
-else {
-	multirange.init();
-}
+	if (document.readyState === "loading") {
+	document.addEventListener("DOMContentLoaded", self.multirange.init);
+	} else {
+	self.multirange.init();
+	}
+	return self.multirange;
 
-})();
+})(typeof window === 'undefined'? (typeof global === 'undefined' ? {} : global) : window);
