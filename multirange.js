@@ -57,7 +57,9 @@ self.multirange = function(input) {
 		});
 	}
 
-	ghost.oninput = input.oninput.bind(input);
+	if (typeof input.oninput === "function") {
+		ghost.oninput = input.oninput.bind(input);
+	}
 
 	function update() {
 		ghost.style.setProperty("--low", 100 * ((input.valueLow - min) / (max - min)) + 1 + "%");
