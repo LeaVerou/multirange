@@ -1,6 +1,6 @@
 {
   "name": "multirange",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A tiny polyfill for HTML5 multi-handle sliders",
   "main": "multirange.js",
   "scripts": {
