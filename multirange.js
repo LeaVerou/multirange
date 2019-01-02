@@ -5,7 +5,7 @@ var supportsMultiple = self.HTMLInputElement && "valueLow" in HTMLInputElement.p
 
 var descriptor = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value");
 
-self.multirange = function(input) {
+var multirange = function(input) {
 	if (supportsMultiple || input.classList.contains("multirange")) {
 		return;
 	}
@@ -76,11 +76,16 @@ multirange.init = function() {
 	[].slice.call(document.querySelectorAll("input[type=range][multiple]:not(.multirange)")).forEach(multirange);
 }
 
-if (document.readyState == "loading") {
-	document.addEventListener("DOMContentLoaded", multirange.init);
-}
-else {
-	multirange.init();
+if (typeof module === 'undefined') {
+	self.multirange = multirange;
+	if (document.readyState == "loading") {
+		document.addEventListener("DOMContentLoaded", multirange.init);
+	}
+	else {
+		multirange.init();
+	}
+} else {
+	module.exports = multirange;
 }
 
 })();
