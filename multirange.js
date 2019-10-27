@@ -67,27 +67,12 @@ var multirange = function(input) {
 	}
 
 	ghost.addEventListener("mousedown", function passClick(evt) {
-		// Are the ghost and input elements inverted? (ghost is lower range)
-		var isInverted = input.valueLow == ghost.value;
-		// Find the horizontal position that was clicked (as a percentage of the element's width)
-		var clickPoint = evt.offsetX / this.offsetWidth;
-		// Map the percentage to a value in the range (note, assumes a min value of 0)
-		var clickValue = max * clickPoint;
-
-		// Get the distance to both high and low values in the range
-		var highDiff = input.valueHigh - clickValue;
-		var lowDiff = Math.abs(input.valueLow - clickValue);
-
-		if (isInverted? highDiff < lowDiff : lowDiff < highDiff) {
-			// The low value is closer to the click point than the high value
-			// We should update the low value input
-			var passEvent = new MouseEvent("mousedown", evt);
-			// Pass a new event to the low "input" element (which is obscured by the
-			// higher "ghost" element, and doesn't get mouse events outside the drag handle
-			input.dispatchEvent(passEvent);
-			// The higher "ghost" element should not respond to this event
-			evt.preventDefault();
-			return false;
+		// Find the horizontal position that was clicked
+		let clickValue = min + (max - min)*evt.offsetX / this.offsetWidth;
+		let middleValue = (input.valueHigh + input.valueLow)/2;
+		if ( (input.valueLow == ghost.value) == (clickValue > middleValue) ) {
+			// Click is closer to input element and we swap thumbs
+			input.value = ghost.value;
 		}
 	});
 	input.addEventListener("input", update);
