@@ -15,7 +15,7 @@ var multirange = function(input) {
 	var min = +(input.min || 0);
 	var max = +(input.max || 100);
 	var ghost = input.cloneNode();
-	var drag = input.getAttribute("drag") !== null;
+	var drag = input.getAttribute("data-drag-middle")!==null;
 	var middle = input.cloneNode();
 
 	input.classList.add("multirange", "original");
