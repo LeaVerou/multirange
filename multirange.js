@@ -15,6 +15,8 @@ var multirange = function(input) {
 	var min = +(input.min || 0);
 	var max = +(input.max || 100);
 	var ghost = input.cloneNode();
+	var dragMiddle = input.getAttribute("data-drag-middle") !== null;
+	var middle = input.cloneNode();
 
 	input.classList.add("multirange", "original");
 	ghost.classList.add("multirange", "ghost");
@@ -61,9 +63,16 @@ var multirange = function(input) {
 		ghost.oninput = input.oninput.bind(input);
 	}
 
-	function update() {
+	function update(mode) {
 		ghost.style.setProperty("--low", 100 * ((input.valueLow - min) / (max - min)) + 1 + "%");
 		ghost.style.setProperty("--high", 100 * ((input.valueHigh - min) / (max - min)) - 1 + "%");
+
+		if (dragMiddle && mode !== 1) {
+			let w = input.valueHigh - input.valueLow;
+			if (w>1) w-=0.5;
+			middle.style.setProperty("--size", (100 * w / (max - min)) + "%");
+			middle.value = min + (input.valueHigh + input.valueLow - 2*min - w)*(max - min)/(2*(max - min - w));
+		}
 	}
 
 	ghost.addEventListener("mousedown", function passClick(evt) {
@@ -77,6 +86,18 @@ var multirange = function(input) {
 	});
 	input.addEventListener("input", update);
 	ghost.addEventListener("input", update);
+
+	if (dragMiddle) {
+		middle.classList.add("multirange", "middle");
+		input.parentNode.insertBefore(middle, input.nextSibling);
+		middle.addEventListener("input", function () {
+			let w = input.valueHigh - input.valueLow;
+			let m = min + w/2 + (middle.value - min)*(max - min - w)/(max-min);
+			input.valueLow = m - w/2;
+			input.valueHigh = input.valueLow+w;
+			update(1);
+		});
+	}
 
 	update();
 }

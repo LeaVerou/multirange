@@ -5,6 +5,9 @@
 		display: inline-block;
 		vertical-align: top;
 	}
+		input[type="range"].multirange::-moz-range-thumb {
+			transform: scale(1); /* FF doesn't apply position it seems */
+		}
 
 	input[type="range"].multirange.original {
 		position: absolute;
@@ -16,12 +19,41 @@
 		}
 
 		input[type="range"].multirange.original::-moz-range-thumb {
-			transform: scale(1); /* FF doesn't apply position it seems */
-			z-index: 1;
+			z-index: 2;
 		}
 
 		input[type="range"].multirange::-moz-range-track {
 			border-color: transparent; /* needed to switch FF to "styleable" control */
+		}
+
+	input[type="range"].multirange.middle {
+		position: absolute;
+		-webkit-appearance: none;
+	}
+		input[type="range"].multirange.middle:focus {
+			outline: none;
+		}
+		input[type="range"].multirange.middle::-moz-range-thumb {
+			position: relative;
+			z-index: 1;
+			height: 9px;
+			width: var(--size);
+			margin-top: 6px;
+			margin-bottom: 6px;
+			background: transparent;
+			cursor: pointer;
+			border: 0;
+		}
+		input[type="range"].multirange.middle::-webkit-slider-thumb {
+			position: relative;
+			z-index: 1;
+			height: 9px;
+			width: var(--size);
+			margin-top: 6px;
+			margin-bottom: 6px;
+			background: transparent;
+			-webkit-appearance: none;
+			cursor: pointer;
 		}
 
 	input[type="range"].multirange.ghost {
@@ -40,6 +72,13 @@
 
 		input[type="range"].multirange.ghost::-moz-range-track {
 			background: var(--track-background);
+		}
+		input[type="range"].multirange.ghost::-webkit-slider-thumb {
+			position: relative;
+			z-index: 2;
+		}
+		input[type="range"].multirange.ghost::-moz-range-thumb {
+			z-index: 2;
 		}
 
 }
