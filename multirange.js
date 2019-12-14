@@ -35,12 +35,12 @@ var multirange = function(input) {
 	Object.defineProperties(input, {
 		valueLow: {
 			get: function() { return Math.min(this.originalValue, ghost.value); },
-			set: function(v) { this.originalValue = v; },
+			set: function(v) { this.originalValue = v; update(); },
 			enumerable: true
 		},
 		valueHigh: {
 			get: function() { return Math.max(this.originalValue, ghost.value); },
-			set: function(v) { ghost.value = v; },
+			set: function(v) { ghost.value = v; update(); },
 			enumerable: true
 		}
 	});
