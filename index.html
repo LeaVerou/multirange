@@ -21,10 +21,10 @@
 </header>
 
 <section class="demo">
-<input type="range" multiple value="0,100" />
-<input type="range" multiple value="10,80" />
-<input type="range" multiple value="40,60" data-drag-middle />
-<input type="range" multiple value="50,50" />
+<span><input type="range" multiple value="0,100" /></span>
+<span><input type="range" multiple value="10,80" /></span>
+<span><input type="range" multiple value="40,60" data-drag-middle /></span>
+<span><input type="range" multiple value="50,50" /></span>
 </section>
 
 <section id="pros-cons">
@@ -46,7 +46,7 @@
 		<h1>Limitations</h1>
 		<ul>
 			<li>Requires support for <code>&lt;input type="range"></code> (duh).</li>
-			<li>Fully works in <a href="http://caniuse.com/#search=css%20variables">browsers supporting CSS Variables</a> (Chrome, Firefox, Safari). Fallback with 2 sliders in the rest.</li>
+			<li>Fully works in <a href="http://caniuse.com/#search=css%20variables">browsers supporting CSS Variables</a> (Chrome, Firefox, Safari) as well as IE 10+. Fallback with 2 sliders in the rest.</li>
 			<li><code>input.value</code> not polyfilled in Safari (will be the same as <code>input.valueLow</code>).</li>
 		</ul>
 	</section>

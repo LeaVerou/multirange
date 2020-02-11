@@ -75,6 +75,14 @@ var multirange = function(input) {
 			middle.style.setProperty("--size", (100 * w / (max - min)) + "%");
 			middle.value = min + (input.valueHigh + input.valueLow - 2*min - w)*(max - min)/(2*(max - min - w));
 		}
+		// Switch colors in IE
+		if (input.value > ghost.value) {
+			input.classList.add("switched");
+			ghost.classList.add("switched");
+		} else {
+			input.classList.remove("switched");
+			ghost.classList.remove("switched");
+		}
 	}
 
 	ghost.addEventListener("mousedown", function passClick(evt) {

@@ -80,5 +80,61 @@
 		input[type="range"].multirange.ghost::-moz-range-thumb {
 			z-index: 2;
 		}
+}
 
+/* IE */
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+
+	input[type="range"].multirange {
+		padding: 0;
+		vertical-align: top;
+	}
+		input[type="range"].multirange::-ms-track {
+			color: transparent; /* Hide tick marks */
+			background: transparent;
+			border: 0;
+		}
+		input[type="range"].multirange::-ms-fill-lower {
+			background: transparent;
+		}
+		input[type="range"].multirange::-ms-fill-upper {
+			background: transparent;
+		}
+	
+	input[type="range"].multirange.original {
+		position: absolute;
+	}
+		input[type="range"].multirange.original::-ms-track {
+			background: hsl(190, 80%, 40%);
+		}
+		input[type="range"].multirange.original::-ms-fill-lower {
+			background: #ddd;
+		}
+
+	input[type="range"].multirange.middle {
+		position: absolute;
+	}
+
+	input[type="range"].multirange.ghost {
+		position: relative;
+	}
+		input[type="range"].multirange.ghost::-ms-fill-upper {
+			background: #ddd;
+		}
+
+	/* Switch colors when inputs are switched, see JavaScript */
+
+	input[type="range"].multirange.switched.original::-ms-fill-lower {
+		background: transparent;
+	}
+	input[type="range"].multirange.switched.original::-ms-fill-upper {
+		background: #ddd;
+	}
+
+	input[type="range"].multirange.switched.ghost::-ms-fill-upper {
+		background: transparent;
+	}
+	input[type="range"].multirange.switched.ghost::-ms-fill-lower {
+		background: #ddd;
+	}
 }
