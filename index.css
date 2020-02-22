@@ -154,3 +154,12 @@ body > footer {
 		background: hsl(25, 100%, 50%);
 		color: black;
 	}
+
+
+/* IE */
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+	.demo {
+		max-width: 66.67%;
+		text-align: left;
+	}
+}

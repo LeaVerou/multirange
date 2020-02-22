@@ -18,8 +18,10 @@ var multirange = function(input) {
 	var dragMiddle = input.getAttribute("data-drag-middle") !== null;
 	var middle = input.cloneNode();
 
-	input.classList.add("multirange", "original");
-	ghost.classList.add("multirange", "ghost");
+	input.classList.add("multirange");
+	input.classList.add("original");
+	ghost.classList.add("multirange");
+	ghost.classList.add("ghost");
 
 	input.value = values[0] || min + (max - min) / 2;
 	ghost.value = values[1] || min + (max - min) / 2;
@@ -68,17 +70,25 @@ var multirange = function(input) {
 		ghost.style.setProperty("--high", 100 * ((input.valueHigh - min) / (max - min)) - 1 + "%");
 
 		if (dragMiddle && mode !== 1) {
-			let w = input.valueHigh - input.valueLow;
+			var w = input.valueHigh - input.valueLow;
 			if (w>1) w-=0.5;
 			middle.style.setProperty("--size", (100 * w / (max - min)) + "%");
 			middle.value = min + (input.valueHigh + input.valueLow - 2*min - w)*(max - min)/(2*(max - min - w));
+		}
+		// Switch colors in IE
+		if (input.value > ghost.value) {
+			input.classList.add("switched");
+			ghost.classList.add("switched");
+		} else {
+			input.classList.remove("switched");
+			ghost.classList.remove("switched");
 		}
 	}
 
 	ghost.addEventListener("mousedown", function passClick(evt) {
 		// Find the horizontal position that was clicked
-		let clickValue = min + (max - min)*evt.offsetX / this.offsetWidth;
-		let middleValue = (input.valueHigh + input.valueLow)/2;
+		var clickValue = min + (max - min)*evt.offsetX / this.offsetWidth;
+		var middleValue = (input.valueHigh + input.valueLow)/2;
 		if ( (input.valueLow == ghost.value) == (clickValue > middleValue) ) {
 			// Click is closer to input element and we swap thumbs
 			input.value = ghost.value;
@@ -88,11 +98,12 @@ var multirange = function(input) {
 	ghost.addEventListener("input", update);
 
 	if (dragMiddle) {
-		middle.classList.add("multirange", "middle");
+		middle.classList.add("multirange");
+		middle.classList.add("middle");
 		input.parentNode.insertBefore(middle, input.nextSibling);
 		middle.addEventListener("input", function () {
-			let w = input.valueHigh - input.valueLow;
-			let m = min + w/2 + (middle.value - min)*(max - min - w)/(max-min);
+			var w = input.valueHigh - input.valueLow;
+			var m = min + w/2 + (middle.value - min)*(max - min - w)/(max-min);
 			input.valueLow = m - w/2;
 			input.valueHigh = input.valueLow+w;
 			update(1);
