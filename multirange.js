@@ -1,6 +1,12 @@
 (function() {
 "use strict";
 
+var isSSR = typeof window === "undefined";
+
+if (isSSR) {
+    return;
+}
+
 var supportsMultiple = self.HTMLInputElement && "valueLow" in HTMLInputElement.prototype;
 
 var descriptor = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value");
