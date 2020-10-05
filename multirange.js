@@ -2,7 +2,7 @@
 "use strict";
 
 // Don't attempt to pollyfill when using SSR
-if (!self?.HTMLInputElement) {
+if (typeof self === "undefined" || !self.HTMLInputElement) {
 	return;
 }
 
