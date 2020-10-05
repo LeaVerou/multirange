@@ -1,6 +1,11 @@
 (function() {
 "use strict";
 
+// Don't attempt to pollyfill when using SSR
+if (typeof self === "undefined" || !self.HTMLInputElement) {
+	return;
+}
+
 var supportsMultiple = self.HTMLInputElement && "valueLow" in HTMLInputElement.prototype;
 
 var descriptor = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value");
