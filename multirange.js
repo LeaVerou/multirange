@@ -1,10 +1,9 @@
 (function() {
 "use strict";
 
-var isSSR = typeof window === "undefined";
-
-if (isSSR) {
-    return;
+// Don't attempt to pollyfill when using SSR
+if (!self?.HTMLInputElement) {
+	return;
 }
 
 var supportsMultiple = self.HTMLInputElement && "valueLow" in HTMLInputElement.prototype;
