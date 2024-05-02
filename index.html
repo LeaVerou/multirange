@@ -1,78 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title></title>
+	<link rel="icon" href="./logo.svg">
+	<link rel="dns-prefetch" href="https://nudeui.com">
+	<link rel="stylesheet" href="./assets/style.css" />
 
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width">
-<title>Multirange: A tiny polyfill for HTML5 multi-handle sliders.</title>
-
-<link rel="stylesheet" href="index.css">
-<link rel="stylesheet" href="multirange.css">
-
+	<script src="./assets/global.js" type="module"></script>
+	<script src="./multirange.js" type="module"></script>
+	
 </head>
 <body>
 
+<nav>
+	<a href="#installation">Installation</a>
+	<a href="https://github.com/LeaVerou/multirange/tree/main/">GitHub</a>
+</nav>
+
 <header>
-	<h1>multirange</h1>
-	<p>A tiny polyfill for <a href="https://html.spec.whatwg.org/multipage/forms.html#range-state-(type=range):attr-input-multiple-3">HTML5 multi-handle sliders</a>.</p>
-	<pre><code>&lt;input type="range" <strong>multiple</strong> value="10,80" /></code></pre>
-	<a href="multirange.js" download>Download JS</a>
-	<a href="multirange.css" download>Download CSS</a>
+<h1><code>&lt;multi-range&gt;</code></h1>
+<p>Web component for dual handle sliders — so you can select an <em>actual</em> range!</p>
 </header>
+<h2>History</h2>
+<p>This <a href="v1/">started</a> as a tiny polyfill for native dual-handle sliders (<code>&lt;input type=range multiple&gt;</code>), when this was still a planned feature.
+In fact, it became popular enough that its CSS variables appeared in the <a href="https://almanac.httparchive.org/en/2020/css#naming">most used CSS property names in 2020</a> according to Web Almanac!
+Unfortunately, <code>&lt;input type=range multiple&gt;</code> was <a href="https://github.com/LeaVerou/multirange/issues/37">dropped from the spec in 2016</a>.
+After almost a decade of hiatus, multirange is now resurrected for the modern web, as a web component!</p>
+<h2>Examples</h2>
+<!-- Basic usage:
 
-<section class="demo">
-<input type="range" multiple value="0,100" />
-<input type="range" multiple value="10,80" />
-<input type="range" multiple value="40,60" />
-<input type="range" multiple value="50,50" />
-</section>
+```html
+<multi-range></multi-range>
+```
 
-<section id="pros-cons">
-	<section class="pros">
-		<h1>Features</h1>
-		<ul>
-			<li>Only 0.6KB minified & gzipped!</li>
-			<li>No dependencies.</li>
-			<li>Uses feature detection, will not run if two-handle sliders are natively supported.</li>
-			<li>Keyboard accessible</li>
-			<li>Clicking on the track still works</li>
-			<li>Handles can be moved past each other</li>
-			<li>Customizable styling</li>
-			<li>JS properties polyfilled too (<code>input.value</code>, <code>input.valueLow</code>, <code>input.valueHigh</code>)</li>
-		</ul>
-	</section>
+Let’s add an input event handler to see what we’re doing:
 
-	<section class="cons">
-		<h1>Limitations</h1>
-		<ul>
-			<li>Requires support for <code>&lt;input type="range"></code> (duh).</li>
-			<li>Fully works in <a href="http://caniuse.com/#search=css%20variables">browsers supporting CSS Variables</a> (Chrome, Firefox, Safari). Fallback with 2 sliders in the rest.</li>
-			<li><code>input.value</code> not polyfilled in Safari (will be the same as <code>input.valueLow</code>).</li>
-		</ul>
-	</section>
-</section>
+```html
+<multi-range oninput="this.nextElementSibling.textContent = this.value"></multi-range>
+<output></output>
+``` -->
+<p>Setting different initial values:</p>
+<pre><code class="language-html">&lt;multi-range valuelow=&quot;30&quot; valuehigh=&quot;60&quot;
+ oninput=&quot;this.nextElementSibling.textContent = this.value&quot;&gt;&lt;/multi-range&gt;
+&lt;output&gt;&lt;/output&gt;
+</code></pre>
+<!-- With min/max/step:
 
-<section>
-	<h1>Api</h1>
+```html
+<multi-range min="-180" max="180" step="0.1"
+ oninput="this.nextElementSibling.textContent = this.value"></multi-range>
+ <output></output>
+```
+ -->
 
-	<ul>
-		<li>
-			<strong>JS:</strong> Use the <code>multirange(element)</code> function to process sliders added to the page later.
-		</li>
-		<li>
-			<strong>CSS:</strong> Use the <code>--range-color</code> property to change the color of the range.
-			Use the <code>--track-background</code> property for more extensive customization.
-		</li>
-	</ul>
-</section>
-
-<footer>
-	Made with &hearts; by <a href="http://lea.verou.me">Lea Verou</a>
-	&bull; <a href="http://lea.verou.me/2016/05/introducing-multirange-a-tiny-polyfill-for-html5-two-handle-sliders" target="_blank">About</a>
-	<a href="https://github.com/LeaVerou/multirange" target="_blank" class="github-ribbon">Fork me on GitHub</a>
-</footer>
-
-<script src="multirange.js"></script>
 
 </body>
 </html>

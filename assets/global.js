@@ -1,0 +1,1 @@
+import "https://nudeui.com/assets/global.js";
