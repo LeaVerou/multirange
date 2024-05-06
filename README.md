@@ -1,6 +1,6 @@
 <header>
 
-# `<multi-range>`
+# `<range-slider>`
 
 Web component for dual handle sliders — so you can select an _actual_ range!
 
@@ -18,29 +18,29 @@ After almost a decade of hiatus, multirange is now resurrected for the modern we
 <!-- Basic usage:
 
 ```html
-<multi-range></multi-range>
+<range-slider></range-slider>
 ```
 
 Let’s add an input event handler to see what we’re doing:
 
 ```html
-<multi-range oninput="this.nextElementSibling.textContent = this.value"></multi-range>
+<range-slider oninput="this.nextElementSibling.textContent = this.value"></range-slider>
 <output></output>
 ``` -->
 
 Setting different initial values:
 
 ```html
-<multi-range valuelow="30" valuehigh="60"
- oninput="this.nextElementSibling.textContent = this.value"></multi-range>
+<range-slider valuelow="30" valuehigh="60"
+ oninput="this.nextElementSibling.textContent = this.value"></range-slider>
 <output></output>
 ```
 
 <!-- With min/max/step:
 
 ```html
-<multi-range min="-180" max="180" step="0.1"
- oninput="this.nextElementSibling.textContent = this.value"></multi-range>
+<range-slider min="-180" max="180" step="0.1"
+ oninput="this.nextElementSibling.textContent = this.value"></range-slider>
  <output></output>
 ```
  -->

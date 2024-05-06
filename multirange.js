@@ -1,7 +1,7 @@
 let styleURL = new URL("multirange.css", import.meta.url);
 
 let self = class MultiRange extends HTMLElement {
-	static tagName = "multi-range";
+	static tagName = "range-slider";
 	#slot = null;
 
 	constructor() {
@@ -12,7 +12,7 @@ let self = class MultiRange extends HTMLElement {
 			<style>@import url("${styleURL}");</style>
 			<div class="multirange">
 				<slot>
-					<input type="range">
+					<input type="range" part="slider">
 				</slot>
 			</div>
 		`;
@@ -31,8 +31,8 @@ let self = class MultiRange extends HTMLElement {
 			previousCopy?.remove();
 			this.sliderSource = this.#slot.assignedElements()[0] ?? this.#slot.firstElementChild;
 			this.sliderCopy = this.sliderSource.cloneNode(true);
-			this.sliderCopy.classList.add("copy");
-			this.container.append(this.sliderCopy);
+			this.sliderCopy.part = "slider copy";
+			this.container.prepend(this.sliderCopy);
 			this.sliders = [this.sliderSource, this.sliderCopy].sort((a, b) => a.value - b.value);
 			this.#slidersUpdated();
 		}
@@ -62,7 +62,7 @@ let self = class MultiRange extends HTMLElement {
 	}
 
 	#valuesUpdated () {
-		console.log(this.sliderLow.value, this.sliderHigh.value)
+		console.log(this.sliderLow.value, this.sliderHigh.value, this.progressLow, this.progressHigh)
 		if (this.sliderLow.value > this.sliderHigh.value) {
 			this.sliders.reverse();
 			this.#slidersUpdated();
@@ -71,7 +71,7 @@ let self = class MultiRange extends HTMLElement {
 		this.style.setProperty("--low", this.valueLow);
 		this.style.setProperty("--low-progress", this.progressLow + "%");
 		this.style.setProperty("--high", this.valueHigh);
-		this.style.setProperty("--high-progress", 100 - this.progressLow + "%");
+		this.style.setProperty("--high-progress", this.progressHigh + "%");
 	}
 
 	get sliderLow () {
@@ -107,7 +107,11 @@ let self = class MultiRange extends HTMLElement {
 	}
 
 	get progressLow () {
-		return 100 * (this.sliderLow.value - this.sliderLow.min) / (this.sliderLow.max - this.sliderLow.min);
+		return 100 * (this.sliderLow.value - this.min) / (this.max - this.min);
+	}
+
+	get progressHigh () {
+		return 100 * (this.sliderHigh.value - this.min) / (this.max - this.min);
 	}
 
 	static observedAttributes = ["min", "max", "step", "valuelow", "valuehigh", "value"];
@@ -136,10 +140,14 @@ let self = class MultiRange extends HTMLElement {
 	}
 }
 
+let defaults = {min: 0, max: 100, step: 1};
+
 for (let prop of ["min", "max", "step"]) {
 	Object.defineProperty(self.prototype, prop, {
 		get () {
-			return this.sliderLow[prop];
+			let value = this.sliderLow[prop];
+			value = value === "" ? defaults[prop] : +value;
+			return value;
 		},
 		set (value) {
 			this.sliderLow[prop] = this.sliderHigh[prop] = value;
@@ -218,4 +226,4 @@ export default self;
 // 	update();
 // }
 
-customElements.define("multi-range", self);
+customElements.define("range-slider", self);

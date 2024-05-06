@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title></title>
+	<title>Multirange</title>
 	<link rel="icon" href="./logo.svg">
 	<link rel="dns-prefetch" href="https://nudeui.com">
 	<link rel="stylesheet" href="./assets/style.css" />
@@ -21,7 +21,7 @@
 </nav>
 
 <header>
-<h1><code>&lt;multi-range&gt;</code></h1>
+<h1><code>&lt;range-slider&gt;</code></h1>
 <p>Web component for dual handle sliders — so you can select an <em>actual</em> range!</p>
 </header>
 <h2>History</h2>
@@ -33,25 +33,25 @@ After almost a decade of hiatus, multirange is now resurrected for the modern we
 <!-- Basic usage:
 
 ```html
-<multi-range></multi-range>
+<range-slider></range-slider>
 ```
 
 Let’s add an input event handler to see what we’re doing:
 
 ```html
-<multi-range oninput="this.nextElementSibling.textContent = this.value"></multi-range>
+<range-slider oninput="this.nextElementSibling.textContent = this.value"></range-slider>
 <output></output>
 ``` -->
 <p>Setting different initial values:</p>
-<pre><code class="language-html">&lt;multi-range valuelow=&quot;30&quot; valuehigh=&quot;60&quot;
- oninput=&quot;this.nextElementSibling.textContent = this.value&quot;&gt;&lt;/multi-range&gt;
+<pre><code class="language-html">&lt;range-slider valuelow=&quot;30&quot; valuehigh=&quot;60&quot;
+ oninput=&quot;this.nextElementSibling.textContent = this.value&quot;&gt;&lt;/range-slider&gt;
 &lt;output&gt;&lt;/output&gt;
 </code></pre>
 <!-- With min/max/step:
 
 ```html
-<multi-range min="-180" max="180" step="0.1"
- oninput="this.nextElementSibling.textContent = this.value"></multi-range>
+<range-slider min="-180" max="180" step="0.1"
+ oninput="this.nextElementSibling.textContent = this.value"></range-slider>
  <output></output>
 ```
  -->

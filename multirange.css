@@ -1,48 +1,55 @@
 .multirange {
 	display: contents;
-	--_range-color: var(--range-color, hsl(190, 80%, 40%));
-	--_track-background: var(--track-background, linear-gradient(to right,
-		transparent var(--low-progress), var(--_range-color) 0,
-		var(--_range-color) var(--high-progress), transparent 0
-	) no-repeat 0 45% / 100% 40%);
-
+	--_color-in-range: var(--color-in-range, accentColor);
+	--_color-out-of-range: var(--color-out-of-range, var(--color-neutral-90, ButtonFace));
+	--_color-track-border: var(--color-track-border, var(--color-neutral-60, color-mix(in oklab, ButtonBorder 25%, oklab(none none none / 0%))));
+	--_track-background: var(--track-background,
+			linear-gradient(to right, transparent var(--low-progress), var(--_color-in-range) 0 var(--high-progress), transparent 0)
+				no-repeat 0 45% / 100% 40%
+		);
+	--_track-background: var(--track-background,
+			linear-gradient(to right, var(--_color-in-range) 0 100%)
+				no-repeat var(--low-progress) 45% / calc(var(--high-progress) - var(--low-progress)) 100%
+			var(--_color-out-of-range) border-box
+		);
 
 	input[type="range"] {
 		padding: 0;
 		margin: 0;
 		display: inline-block;
 		vertical-align: top;
+		height: .5em;
+		border: 1px solid var(--_color-track-border);
+		border-radius: 1em;
 
-		&.copy {
-			position: relative;
-			background: var(--_track-background);
+		&[part~="copy"] {
+			position: absolute;
+			visibility: hidden;
 
-			&::-webkit-slider-runnable-track {
-				background: var(--_track-background);
+			&::-webkit-slider-thumb {
+				position: relative;
+				z-index: 2;
+				visibility: visible;
 			}
 
-			&::-moz-range-track {
-				background: var(--_track-background);
+			&::-moz-range-thumb {
+				transform: scale(1); /* FF doesn't apply position it seems */
+				z-index: 1;
+				visibility: visible;
 			}
 		}
 	}
 
-	input[type="range"]:not(.copy),
+	input[type="range"]:not([part~="copy"]),
 	::slotted(input[type="range"]) {
-		position: absolute;
+		position: relative;
+		-webkit-appearance: none;
+		background: var(--_track-background);
 
-		&::-webkit-slider-thumb {
-			position: relative;
-			z-index: 2;
-		}
-
-		&::-moz-range-thumb {
-			transform: scale(1); /* FF doesn't apply position it seems */
-			z-index: 1;
-		}
 
 		&::-moz-range-track {
-			border-color: transparent; /* needed to switch FF to "styleable" control */
+			background: var(--_track-background);
 		}
+
 	}
 }
